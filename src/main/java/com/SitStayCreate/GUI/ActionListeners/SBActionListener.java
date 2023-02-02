@@ -2,9 +2,6 @@ package com.SitStayCreate.GUI.ActionListeners;
 
 import com.SitStayCreate.GUI.DTPane;
 import com.SitStayCreate.GUI.GridPanel;
-import com.SitStayCreate.GUI.MidiPanel;
-import com.SitStayCreate.MidiGrid.HardwareDevice;
-import com.SitStayCreate.MidiGrid.MidiGridAdapter;
 import com.SitStayCreate.Serialosc.*;
 import com.SitStayCreate.VirtualGrid.VGridFrame;
 import com.SitStayCreate.Constants;
@@ -16,26 +13,19 @@ import java.io.IOException;
 
 public class SBActionListener implements ActionListener {
     private GridPanel gridPanel;
-    private MidiPanel midiPanel;
     private RequestServer requestServer;
     private DTPane devicePane;
 
     public SBActionListener(GridPanel gridPanel,
-                            MidiPanel midiPanel,
                             RequestServer requestServer,
                             DTPane devicePane) {
         setGridPanel(gridPanel);
-        setMidiPanel(midiPanel);
         setRequestServer(requestServer);
         setDevicePane(devicePane);
     }
 
     public void setGridPanel(GridPanel gridPanel) {
         this.gridPanel = gridPanel;
-    }
-
-    public void setMidiPanel(MidiPanel midiPanel) {
-        this.midiPanel = midiPanel;
     }
 
     public void setRequestServer(RequestServer requestServer) {
@@ -59,33 +49,9 @@ public class SBActionListener implements ActionListener {
                 return;
             }
         }
-
+        // Clear the error for Port in use
         gridPanel.clearErrorLabel();
-
-        //Test to see if user wants a virtual grid or midi grid
-        if(gridPanel.isVGrid()){
-            new VGridFrame(requestServer, devicePane, portIn);
-            return;
-        }
-
-
-        HardwareDevice hardwareDevice = midiPanel.createHardwareDevice();
-
-        //create OscDevice
-        try {
-            MidiGridAdapter grid = new MidiGridAdapter(new MonomeApp(Constants.DEFAULT_PORT),
-                    midiPanel.getDims(),
-                    portIn,
-                    hardwareDevice);
-
-            //give the request server a reference to the oscDevice to serve to apps
-            requestServer.addMonomeController(grid);
-            //Notify apps that a new device exists
-            requestServer.notifyListeners(grid);
-
-            devicePane.addRow(grid);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        // Create a virtual grid
+        new VGridFrame(requestServer, devicePane, portIn);return;
     }
 }

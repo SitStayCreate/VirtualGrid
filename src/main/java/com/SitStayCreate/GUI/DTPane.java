@@ -1,6 +1,5 @@
 package com.SitStayCreate.GUI;
 
-import com.SitStayCreate.MidiGrid.MidiGridAdapter;
 import com.SitStayCreate.VirtualGrid.VirtualGridController;
 import com.SitStayCreate.Constants;
 
@@ -15,11 +14,6 @@ public class DTPane extends JScrollPane {
         setMaximumSize(new Dimension(Constants.DTPANE_WIDTH, Constants.DTPANE_HEIGHT));
         getViewport().setBackground(Color.GRAY);
         setDevicesTable(devicesTable);
-    }
-
-    public void addRow(MidiGridAdapter grid){
-        devicesTable.addRow(grid);
-        updateUI();
     }
 
     public void addRow(VirtualGridController grid){

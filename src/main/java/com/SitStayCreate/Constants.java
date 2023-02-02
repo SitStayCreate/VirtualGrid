@@ -6,23 +6,9 @@ public class Constants {
     // MainPanel
     public final static int FONT_SIZE = 18;
 
-    // MidiPanel
-    public final static String MIDI_IN_LABEL = "Midi in: ";
-    public final static String MIDI_OUT_LABEL = "Midi out: ";
-    public final static String DIMENS_LABEL = "Dimens: ";
-    public final static String RADIO_BUTTON1_LABEL = "64";
-    public final static String RADIO_BUTTON2_LABEL = "128";
-    public final static String INVERT_LABEL = "Invert Y-Axis";
-    public final static String CHANNEL_LABEL = "Channel: ";
-    public final static String ELIPSES = "...";
-    public final static String REGEX_SPLIT = ":";
-
     // GridPanel
     public final static String PORT_IN_LABEL = "Port in: ";
     public final static String DEFAULT_PORT_NUMBER = "8080";
-    public final static String TYPE_LABEL = "Type: ";
-    public final static String TYPE_RB1_LABEL = "Midi";
-    public final static String TYPE_RB2_LABEL = "VGrid";
     public final static String CREATE_BUTTON_LABEL = "Create";
     public final static int CREATE_BUTTON_WIDTH = 120;
     public final static int CREATE_BUTTON_HEIGHT = 40;
@@ -30,13 +16,9 @@ public class Constants {
     // DevicesTable
     public final static String DROP_LABEL = "Drop";
     public final static String ID_COLUMN_LABEL = "ID";
-    public final static String SIZE_COLUMN_LABEL = " Size ";
     public final static String PORT_IN_COLUMN_LABEL = "Port In";
-    public final static String INVERTED_COLUMN_LABEL = "Inverted";
-    public final static String CH_LABEL = "Ch";
     public final static String DELETE_LABEL = "X";
-    public final static String DEVICE_DIMS_LABEL = "x";
-    public final static int VIEWPORT_WIDTH = 300;
+    public final static int VIEWPORT_WIDTH = 200;
     public final static int VIEWPORT_HEIGHT = 50;
 
     // DTPane
