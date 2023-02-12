@@ -6,7 +6,6 @@ import com.SitStayCreate.CerealOSC.MonomeDevice.MonomeController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 public class DropActionListener implements ActionListener {
 
     private MonomeController monomeController;
@@ -29,7 +28,6 @@ public class DropActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //TODO: Delete grids from the Server, notify targetApps, free up grid resources,
         // remove from DevicesTable
         monomeController.close();
         devicesTable.dropRow(monomeController.getId());
