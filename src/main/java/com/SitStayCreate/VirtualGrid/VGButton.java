@@ -1,6 +1,5 @@
 package com.SitStayCreate.VirtualGrid;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class VGButton extends Label {
