@@ -1,9 +1,13 @@
-package com.SitStayCreate.Serialosc;
+package com.SitStayCreate.CerealOSC.MonomeDevice;
 
-import com.SitStayCreate.Serialosc.SysListeners.SysHostListener;
-import com.SitStayCreate.Serialosc.SysListeners.SysInfoListener;
-import com.SitStayCreate.Serialosc.SysListeners.SysPortListener;
-import com.SitStayCreate.Serialosc.SysListeners.SysPrefixListener;
+import com.SitStayCreate.CerealOSC.MonomeApp.MonomeApp;
+import com.SitStayCreate.CerealOSC.OSC.DecoratedOSCPortIn;
+import com.SitStayCreate.CerealOSC.OSC.DecoratedOSCPortOut;
+import com.SitStayCreate.CerealOSC.RequestServer.RequestServer;
+import com.SitStayCreate.CerealOSC.SysListeners.SysHostListener;
+import com.SitStayCreate.CerealOSC.SysListeners.SysInfoListener;
+import com.SitStayCreate.CerealOSC.SysListeners.SysPortListener;
+import com.SitStayCreate.CerealOSC.SysListeners.SysPrefixListener;
 import com.SitStayCreate.Constants;
 import com.illposed.osc.*;
 import com.illposed.osc.messageselector.OSCPatternAddressMessageSelector;
@@ -17,8 +21,9 @@ public abstract class GridController extends MonomeController {
     public GridController(MonomeApp monomeApp,
                           DecoratedOSCPortIn decoratedOSCPortIn,
                           DecoratedOSCPortOut decoratedOSCPortOut,
-                          Dimensions dimensions) {
-        super(monomeApp, decoratedOSCPortIn, decoratedOSCPortOut);
+                          Dimensions dimensions,
+                          RequestServer requestServer) {
+        super(monomeApp, decoratedOSCPortIn, decoratedOSCPortOut, requestServer);
         setDimensions(dimensions);
         addSysListeners();
         getDecoratedOSCPortIn().startListening();

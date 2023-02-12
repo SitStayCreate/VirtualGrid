@@ -1,8 +1,8 @@
 package com.SitStayCreate.VirtualGrid;
 
 import com.SitStayCreate.GUI.DTPane;
-import com.SitStayCreate.Serialosc.Dimensions;
-import com.SitStayCreate.Serialosc.RequestServer;
+import com.SitStayCreate.CerealOSC.MonomeDevice.Dimensions;
+import com.SitStayCreate.CerealOSC.RequestServer.RequestServer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,11 +15,11 @@ public class VGridFrame extends JFrame {
         //TODO: Consider replacing with NullController
         VirtualGridController vgrid = null;
         try {
-            vgrid = new VirtualGridController(portInNumber, this);
+            vgrid = new VirtualGridController(portInNumber, this, requestServer);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        // TODO: This can be moved to the virtual grid
         //give the request server a reference to the controller to serve to apps
         requestServer.addMonomeController(vgrid);
         //Notify apps that a new device exists

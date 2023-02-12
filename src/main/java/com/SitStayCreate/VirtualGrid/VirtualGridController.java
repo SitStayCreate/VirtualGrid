@@ -1,6 +1,11 @@
 package com.SitStayCreate.VirtualGrid;
 
-import com.SitStayCreate.Serialosc.*;
+import com.SitStayCreate.CerealOSC.MonomeApp.MonomeApp;
+import com.SitStayCreate.CerealOSC.MonomeDevice.Dimensions;
+import com.SitStayCreate.CerealOSC.MonomeDevice.GridController;
+import com.SitStayCreate.CerealOSC.OSC.DecoratedOSCPortIn;
+import com.SitStayCreate.CerealOSC.OSC.DecoratedOSCPortOut;
+import com.SitStayCreate.CerealOSC.RequestServer.RequestServer;
 import com.SitStayCreate.VirtualGrid.LEDListeners.*;
 import com.illposed.osc.*;
 import com.illposed.osc.messageselector.JavaRegexAddressMessageSelector;
@@ -20,25 +25,27 @@ public class VirtualGridController extends GridController {
 
     //Use this constructor if no Apps have registered with the RequestServer - Max/MSP represents an unknown port as 0
     //so I'm following this convention.
-    public VirtualGridController(int portInNumber, VGridFrame vGridFrame) throws IOException {
-        this(new MonomeApp(0), portInNumber);
+    public VirtualGridController(int portInNumber, VGridFrame vGridFrame, RequestServer requestServer) throws IOException {
+        this(new MonomeApp(0), portInNumber, requestServer);
         this.vGridFrame = vGridFrame;
     }
 
     //Use this constructor if no Apps have registered with the RequestServer - Max/MSP represents an unknown port as 0
     //so I'm following this convention.
-    public VirtualGridController(int portInNumber) throws IOException {
-        this(new MonomeApp(0), portInNumber);
+    public VirtualGridController(int portInNumber, RequestServer requestServer) throws IOException {
+        this(new MonomeApp(0), portInNumber, requestServer);
     }
 
     //Use this constructor if MonomeApp has registered with the RequestServer
     public VirtualGridController(MonomeApp monomeApp,
-                                 int portInNumber) throws IOException {
+                                 int portInNumber,
+                                 RequestServer requestServer) throws IOException {
         super(monomeApp,
             new DecoratedOSCPortIn(portInNumber),
             new DecoratedOSCPortOut(monomeApp.getInetAddress(),
             monomeApp.getPortNumber()),
-            new Dimensions(Constants.HEIGHT, Constants.WIDTH, false));
+            new Dimensions(Constants.HEIGHT, Constants.WIDTH, false),
+            requestServer);
         LED_COLORS.add(Color.DARK_GRAY);
         LED_COLORS.add(Color.decode(Constants.COLOR_LEVEL_TWO));
         LED_COLORS.add(Color.decode(Constants.COLOR_LEVEL_THREE));
@@ -178,6 +185,7 @@ public class VirtualGridController extends GridController {
         try {
             decoratedOSCPortIn.close();
             decoratedOSCPortOut.close();
+            requestServer.removeMonomeController(this);
             vGridFrame.dispose();
         } catch (IOException e) {
             e.printStackTrace();

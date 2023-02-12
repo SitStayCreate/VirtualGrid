@@ -1,7 +1,7 @@
 package com.SitStayCreate.GUI;
 
 import com.SitStayCreate.GUI.ActionListeners.DropActionListener;
-import com.SitStayCreate.Serialosc.Dimensions;
+import com.SitStayCreate.CerealOSC.MonomeDevice.Dimensions;
 import com.SitStayCreate.VirtualGrid.VirtualGridController;
 import com.SitStayCreate.Constants;
 

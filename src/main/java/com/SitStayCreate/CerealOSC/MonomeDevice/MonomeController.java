@@ -1,9 +1,15 @@
-package com.SitStayCreate.Serialosc;
+package com.SitStayCreate.CerealOSC.MonomeDevice;
+
+import com.SitStayCreate.CerealOSC.MonomeApp.MonomeApp;
+import com.SitStayCreate.CerealOSC.OSC.DecoratedOSCPortIn;
+import com.SitStayCreate.CerealOSC.OSC.DecoratedOSCPortOut;
+import com.SitStayCreate.CerealOSC.RequestServer.RequestServer;
 
 import java.io.IOException;
 
 public abstract class MonomeController {
 
+    protected RequestServer requestServer;
     protected DecoratedOSCPortIn decoratedOSCPortIn;
     protected DecoratedOSCPortOut decoratedOSCPortOut;
     protected String id, prefix;
@@ -13,13 +19,15 @@ public abstract class MonomeController {
 
     public MonomeController(MonomeApp monomeApp,
                             DecoratedOSCPortIn decoratedOSCPortIn,
-                            DecoratedOSCPortOut decoratedOSCPortOut) {
+                            DecoratedOSCPortOut decoratedOSCPortOut,
+                            RequestServer requestServer) {
         this.monomeApp = monomeApp;
         setId(String.format("ssc-0%d", count));
         // Dummy value - app can crash without this
         setPrefix("/SSC");
         setDecoratedOSCPortIn(decoratedOSCPortIn);
         setDecoratedOSCPortOut(decoratedOSCPortOut);
+        setRequestServer(requestServer);
         count++;
     }
 
@@ -61,6 +69,14 @@ public abstract class MonomeController {
     public void setPrefix(String prefix){
         this.prefix = prefix;
     };
+
+    public RequestServer getRequestServer() {
+        return requestServer;
+    }
+
+    public void setRequestServer(RequestServer requestServer) {
+        this.requestServer = requestServer;
+    }
 
     public abstract void addSysListeners();
 

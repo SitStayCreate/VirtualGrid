@@ -2,14 +2,15 @@ package com.SitStayCreate.GUI.ActionListeners;
 
 import com.SitStayCreate.GUI.DTPane;
 import com.SitStayCreate.GUI.GridPanel;
-import com.SitStayCreate.Serialosc.*;
+import com.SitStayCreate.CerealOSC.MonomeDevice.GridController;
+import com.SitStayCreate.CerealOSC.MonomeDevice.MonomeController;
+import com.SitStayCreate.CerealOSC.RequestServer.RequestServer;
 import com.SitStayCreate.VirtualGrid.VGridFrame;
 import com.SitStayCreate.Constants;
 
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class SBActionListener implements ActionListener {
     private GridPanel gridPanel;

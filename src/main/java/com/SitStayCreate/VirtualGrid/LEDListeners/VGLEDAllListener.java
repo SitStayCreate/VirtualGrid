@@ -1,6 +1,6 @@
 package com.SitStayCreate.VirtualGrid.LEDListeners;
 
-import com.SitStayCreate.Serialosc.LEDListeners.LEDAllListener;
+import com.SitStayCreate.CerealOSC.LEDListeners.LEDAllListener;
 import com.SitStayCreate.VirtualGrid.VGButton;
 
 import java.awt.*;

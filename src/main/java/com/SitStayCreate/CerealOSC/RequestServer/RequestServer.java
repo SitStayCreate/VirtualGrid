@@ -1,7 +1,11 @@
-package com.SitStayCreate.Serialosc;
+package com.SitStayCreate.CerealOSC.RequestServer;
 
 import com.SitStayCreate.Constants;
 
+import com.SitStayCreate.CerealOSC.MonomeApp.MonomeApp;
+import com.SitStayCreate.CerealOSC.MonomeDevice.GridController;
+import com.SitStayCreate.CerealOSC.MonomeDevice.MonomeController;
+import com.SitStayCreate.CerealOSC.OSC.DecoratedOSCPortIn;
 import com.illposed.osc.*;
 import com.illposed.osc.messageselector.OSCPatternAddressMessageSelector;
 import com.illposed.osc.transport.udp.OSCPortIn;
@@ -36,6 +40,10 @@ public class RequestServer {
         gridControllers.add(gridController);
     }
 
+    public void removeMonomeController(GridController gridController){
+//        TODO: Make this a set and this method will exist
+        // gridController.remove(gridController);
+    }
     public List<GridController> getGridControllers() {
         return gridControllers;
     }
