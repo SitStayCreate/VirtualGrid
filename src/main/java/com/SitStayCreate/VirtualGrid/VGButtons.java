@@ -21,7 +21,11 @@ public class VGButtons {
         }
     }
 
-    public VGButton[][] getButtonMatrix(){
+    public VGButton getButton(int x, int y){
+        return buttonMatrix[x][y];
+    }
+
+    public VGButton[][] getButtonMatrix() {
         return buttonMatrix;
     }
 }

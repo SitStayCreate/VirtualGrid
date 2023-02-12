@@ -2,23 +2,32 @@ package com.SitStayCreate.VirtualGrid.LEDListeners;
 
 import com.SitStayCreate.CerealOSC.LEDListeners.LEDAllListener;
 import com.SitStayCreate.VirtualGrid.VGButton;
+import com.SitStayCreate.VirtualGrid.VGButtons;
 
 import java.awt.*;
 import java.util.List;
 
 public class VGLEDAllListener extends LEDAllListener {
 
-    VGButton[][] buttonMatrix;
+    private VGButtons vgButtons;
     private List<Color> colorValues;
 
-    public VGLEDAllListener(VGButton[][] buttonMatrix, List<Color> colorValues){
-        this.buttonMatrix = buttonMatrix;
+    public VGLEDAllListener(VGButtons vgButtons, List<Color> colorValues){
+        setVgButtons(vgButtons);
+        setColorValues(colorValues);
+    }
+
+    public void setVgButtons(VGButtons vgButtons) {
+        this.vgButtons = vgButtons;
+    }
+
+    public void setColorValues(List<Color> colorValues) {
         this.colorValues = colorValues;
     }
 
     @Override
     public void setLedAllState(int state) {
-        for(VGButton[] buttonArr : buttonMatrix){
+        for(VGButton[] buttonArr : vgButtons.getButtonMatrix()){
             for(VGButton button : buttonArr){
                 if(state == 0){
                     button.setBackground(colorValues.get(0));

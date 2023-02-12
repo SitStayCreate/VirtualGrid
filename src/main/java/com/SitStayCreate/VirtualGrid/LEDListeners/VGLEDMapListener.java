@@ -1,17 +1,25 @@
 package com.SitStayCreate.VirtualGrid.LEDListeners;
 
 import com.SitStayCreate.CerealOSC.LEDListeners.LEDMapListener;
-import com.SitStayCreate.VirtualGrid.VGButton;
+import com.SitStayCreate.VirtualGrid.VGButtons;
 
 import java.util.List;
 import java.awt.*;
 
 public class VGLEDMapListener extends LEDMapListener {
-    VGButton[][] buttonMatrix;
+    private VGButtons vgButtons;
     private List<Color> colorValues;
 
-    public VGLEDMapListener(VGButton[][] buttonMatrix, List<Color> colorValues){
-        this.buttonMatrix = buttonMatrix;
+    public VGLEDMapListener(VGButtons vgButtons, List<Color> colorValues){
+        setVgButtons(vgButtons);
+        setColorValues(colorValues);
+    }
+
+    public void setVgButtons(VGButtons vgButtons) {
+        this.vgButtons = vgButtons;
+    }
+
+    public void setColorValues(List<Color> colorValues) {
         this.colorValues = colorValues;
     }
 
@@ -27,7 +35,7 @@ public class VGLEDMapListener extends LEDMapListener {
 
         //Add leading 0s if fewer than 8 bits
         for(int j = 7; j >= binaryString.length(); j--){
-            buttonMatrix[xOffset + xCounter][yOffset + yCounter].setBackground(colorValues.get(0));
+            vgButtons.getButton(xOffset + xCounter,yOffset + yCounter).setBackground(colorValues.get(0));
             xCounter++;
         }
 
@@ -44,9 +52,9 @@ public class VGLEDMapListener extends LEDMapListener {
             }
 
             if(gridZ == 0){
-                buttonMatrix[xOffset + xCounter][yOffset + yCounter].setBackground(colorValues.get(0));
+                vgButtons.getButton(xOffset + xCounter,yOffset + yCounter).setBackground(colorValues.get(0));
             } else {
-                buttonMatrix[xOffset + xCounter][yOffset + yCounter].setBackground(colorValues.get(3));
+                vgButtons.getButton(xOffset + xCounter,yOffset + yCounter).setBackground(colorValues.get(3));
             }
 
             xCounter++;

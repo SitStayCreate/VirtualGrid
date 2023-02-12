@@ -1,21 +1,28 @@
 package com.SitStayCreate.VirtualGrid.LEDListeners;
 
 import com.SitStayCreate.CerealOSC.LEDListeners.LEDLevelRowListener;
-import com.SitStayCreate.VirtualGrid.VGButton;
+import com.SitStayCreate.VirtualGrid.VGButtons;
 
 import java.awt.*;
 import java.util.List;
 
 public class VGLEDLevelRowListener extends LEDLevelRowListener {
 
-    VGButton[][] buttonMatrix;
+    private VGButtons vgButtons;
     private List<Color> colorValues;
 
-    public VGLEDLevelRowListener(VGButton[][] buttonMatrix, List<Color> colorValues){
-        this.buttonMatrix = buttonMatrix;
-        this.colorValues = colorValues;
+    public VGLEDLevelRowListener(VGButtons vgButtons, List<Color> colorValues){
+        setVgButtons(vgButtons);
+        setColorValues(colorValues);
     }
 
+    public void setVgButtons(VGButtons vgButtons) {
+        this.vgButtons = vgButtons;
+    }
+
+    public void setColorValues(List<Color> colorValues) {
+        this.colorValues = colorValues;
+    }
 
     @Override
     public void setLEDLevelRow(int xOffset, int gridY, int xCounter, int ledState) {
@@ -27,13 +34,13 @@ public class VGLEDLevelRowListener extends LEDLevelRowListener {
 
         //Varibright supported
         if (ledState < 4) {
-            buttonMatrix[xOffset + (xCounter)][gridY].setBackground(colorValues.get(0));
+            vgButtons.getButton(xOffset + (xCounter),gridY).setBackground(colorValues.get(0));
         } else if (ledState < 8) {
-            buttonMatrix[xOffset + (xCounter)][gridY].setBackground(colorValues.get(1));
+            vgButtons.getButton(xOffset + (xCounter),gridY).setBackground(colorValues.get(1));
         } else if (ledState < 12) {
-            buttonMatrix[xOffset + (xCounter)][gridY].setBackground(colorValues.get(2));
+            vgButtons.getButton(xOffset + (xCounter),gridY).setBackground(colorValues.get(2));
         } else {
-            buttonMatrix[xOffset + (xCounter)][gridY].setBackground(colorValues.get(3));
+            vgButtons.getButton(xOffset + (xCounter),gridY).setBackground(colorValues.get(3));
         }
     }
 }

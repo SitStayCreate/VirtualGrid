@@ -1,17 +1,25 @@
 package com.SitStayCreate.VirtualGrid.LEDListeners;
 
 import com.SitStayCreate.CerealOSC.LEDListeners.LEDLevelSetListener;
-import com.SitStayCreate.VirtualGrid.VGButton;
+import com.SitStayCreate.VirtualGrid.VGButtons;
 
 import java.awt.*;
 import java.util.List;
 
 public class VGLEDLevelSetListener extends LEDLevelSetListener {
-    VGButton[][] buttonMatrix;
+    private VGButtons vgButtons;
     private List<Color> colorValues;
 
-    public VGLEDLevelSetListener(VGButton[][] buttonMatrix, List<Color> colorValues){
-        this.buttonMatrix = buttonMatrix;
+    public VGLEDLevelSetListener(VGButtons vgButtons, List<Color> colorValues){
+        setVgButtons(vgButtons);
+        setColorValues(colorValues);
+    }
+
+    public void setVgButtons(VGButtons vgButtons) {
+        this.vgButtons = vgButtons;
+    }
+
+    public void setColorValues(List<Color> colorValues) {
         this.colorValues = colorValues;
     }
 
@@ -24,13 +32,13 @@ public class VGLEDLevelSetListener extends LEDLevelSetListener {
 
         //Translate ledLevel to ledSet
         if(z < 4){
-            buttonMatrix[x][y].setBackground(colorValues.get(0));
+            vgButtons.getButton(x,y).setBackground(colorValues.get(0));
         } else if(z < 8){
-            buttonMatrix[x][y].setBackground(colorValues.get(1));
+            vgButtons.getButton(x,y).setBackground(colorValues.get(1));
         }  else if(z < 12){
-            buttonMatrix[x][y].setBackground(colorValues.get(2));
+            vgButtons.getButton(x,y).setBackground(colorValues.get(2));
         } else {
-            buttonMatrix[x][y].setBackground(colorValues.get(3));
+            vgButtons.getButton(x,y).setBackground(colorValues.get(3));
         }
     }
 }

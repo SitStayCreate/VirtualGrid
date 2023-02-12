@@ -1,18 +1,26 @@
 package com.SitStayCreate.VirtualGrid.LEDListeners;
 
 import com.SitStayCreate.CerealOSC.LEDListeners.LEDRowListener;
-import com.SitStayCreate.VirtualGrid.VGButton;
+import com.SitStayCreate.VirtualGrid.VGButtons;
 
 import java.awt.*;
 import java.util.List;
 
 public class VGLEDRowListener extends LEDRowListener {
 
-    VGButton[][] buttonMatrix;
-    List<Color> colorValues;
+    private VGButtons vgButtons;
+    private List<Color> colorValues;
 
-    public VGLEDRowListener(VGButton[][] buttonMatrix, List<Color> colorValues){
-        this.buttonMatrix = buttonMatrix;
+    public VGLEDRowListener(VGButtons vgButtons, List<Color> colorValues){
+        setVgButtons(vgButtons);
+        setColorValues(colorValues);
+    }
+
+    public void setVgButtons(VGButtons vgButtons) {
+        this.vgButtons = vgButtons;
+    }
+
+    public void setColorValues(List<Color> colorValues) {
         this.colorValues = colorValues;
     }
 
@@ -29,7 +37,7 @@ public class VGLEDRowListener extends LEDRowListener {
         //because leading 0's turn LEDs off.  0 = 00000000 255 = 11111111
         //Add leading 0s if fewer than 8 bits
         for (int j = 7; j >= binaryString.length(); j--) {
-            buttonMatrix[xOffset + xCounter][y].setBackground(colorValues.get(0));
+            vgButtons.getButton(xOffset + xCounter,y).setBackground(colorValues.get(0));
             xCounter++;
         }
 
@@ -45,9 +53,9 @@ public class VGLEDRowListener extends LEDRowListener {
             }
 
             if(gridZ == 0){
-                buttonMatrix[xOffset + xCounter][y].setBackground(colorValues.get(0));
+                vgButtons.getButton(xOffset + xCounter,y).setBackground(colorValues.get(0));
             } else {
-                buttonMatrix[xOffset + xCounter][y].setBackground(colorValues.get(3));
+                vgButtons.getButton(xOffset + xCounter,y).setBackground(colorValues.get(3));
             }
 
             xCounter++;

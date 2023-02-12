@@ -35,7 +35,7 @@ public class VGridFrame extends JFrame {
 
         for (int j = 0; j < vgridDims.getHeight(); j++){
             for (int i = 0; i < vgridDims.getWidth(); i++){
-                VGButton button = vgrid.getVgButtons().getButtonMatrix()[i][j];
+                VGButton button = vgrid.getVgButtons().getButton(i, j);
                 bpC.gridx = i;
                 bpC.gridy = j;
                 bpLayout.setConstraints(button, bpC);
