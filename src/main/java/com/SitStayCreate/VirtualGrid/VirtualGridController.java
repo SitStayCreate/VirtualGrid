@@ -8,13 +8,10 @@ import com.SitStayCreate.CerealOSC.OSC.DecoratedOSCPortOut;
 import com.SitStayCreate.CerealOSC.RequestServer.RequestServer;
 import com.SitStayCreate.VirtualGrid.LEDListeners.*;
 import com.SitStayCreate.VirtualGrid.MouseListeners.ButtonMouseListener;
-import com.illposed.osc.*;
 import com.illposed.osc.messageselector.JavaRegexAddressMessageSelector;
 import com.SitStayCreate.Constants;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
