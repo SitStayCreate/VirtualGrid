@@ -19,11 +19,6 @@ public class VGridFrame extends JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // TODO: This can be moved to the virtual grid
-        //give the request server a reference to the controller to serve to apps
-        requestServer.addMonomeController(vgrid);
-        //Notify apps that a new device exists
-        requestServer.notifyListeners(vgrid);
         devicePane.addRow(vgrid);
         setTitle(vgrid.getId());
 

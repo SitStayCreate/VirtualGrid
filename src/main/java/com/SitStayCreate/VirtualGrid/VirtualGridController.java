@@ -7,6 +7,7 @@ import com.SitStayCreate.CerealOSC.OSC.DecoratedOSCPortIn;
 import com.SitStayCreate.CerealOSC.OSC.DecoratedOSCPortOut;
 import com.SitStayCreate.CerealOSC.RequestServer.RequestServer;
 import com.SitStayCreate.VirtualGrid.LEDListeners.*;
+import com.SitStayCreate.VirtualGrid.MouseListeners.ButtonMouseListener;
 import com.illposed.osc.*;
 import com.illposed.osc.messageselector.JavaRegexAddressMessageSelector;
 import com.SitStayCreate.Constants;
@@ -53,69 +54,16 @@ public class VirtualGridController extends GridController {
 
         buttonMatrix = new VGButton[dimensions.getWidth()][dimensions.getHeight()];
 
-        for (int j = 0; j < dimensions.getHeight(); j++){
-            for (int i = 0; i < dimensions.getWidth(); i++){
-                    buttonMatrix[i][j] = new VGButton();
-                    buttonMatrix[i][j].setPreferredSize(new Dimension(Constants.BUTTON_SIZE, Constants.BUTTON_SIZE));
-                    final int x = i;
-                    final int y = j;
-                    buttonMatrix[i][j].addMouseListener(new MouseListener() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            //Do nothing
-                        }
+        //give the request server a reference to the controller to serve to apps
+        requestServer.addMonomeController(this);
+        //Notify apps that a new device exists
+        requestServer.notifyListeners(this);
 
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            String addressString = String.format(Constants.FORMAT_STRING, getPrefix());
-                            List<Integer> oscArgs = new ArrayList<>();
-                            oscArgs.add(x);
-                            oscArgs.add(y);
-                            oscArgs.add(1);
-
-                            OSCMessageInfo oscMessageInfo = new OSCMessageInfo(Constants.FORMAT_TYPE_TAG);
-                            OSCMessage oscMessage = new OSCMessage(addressString, oscArgs, oscMessageInfo);
-                            try {
-                                System.out.println(getPrefix());
-                                System.out.println(oscArgs);
-                                send(oscMessage);
-                            } catch (IOException ex) {
-                                ex.printStackTrace();
-                            } catch (OSCSerializeException ex) {
-                                ex.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void mouseReleased(MouseEvent e) {
-                            String addressString = String.format(Constants.FORMAT_STRING, getPrefix());
-                            List<Integer> oscArgs = new ArrayList<>();
-                            oscArgs.add(x);
-                            oscArgs.add(y);
-                            oscArgs.add(0);
-
-                            OSCMessageInfo oscMessageInfo = new OSCMessageInfo(Constants.FORMAT_TYPE_TAG);
-                            OSCMessage oscMessage = new OSCMessage(addressString, oscArgs, oscMessageInfo);
-                            try {
-                                System.out.println(oscArgs);
-                                send(oscMessage);
-                            } catch (IOException ex) {
-                                ex.printStackTrace();
-                            } catch (OSCSerializeException ex) {
-                                ex.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void mouseEntered(MouseEvent e) {
-                            //Do nothing
-                        }
-
-                        @Override
-                        public void mouseExited(MouseEvent e) {
-                            //Do nothing
-                        }
-                    });
+        for (int y = 0; y < dimensions.getHeight(); y++){
+            for (int x = 0; x < dimensions.getWidth(); x++){
+                    buttonMatrix[x][y] = new VGButton();
+                    buttonMatrix[x][y].setPreferredSize(new Dimension(Constants.BUTTON_SIZE, Constants.BUTTON_SIZE));
+                    buttonMatrix[x][y].addMouseListener(new ButtonMouseListener(x, y, this));
             }
         }
 
