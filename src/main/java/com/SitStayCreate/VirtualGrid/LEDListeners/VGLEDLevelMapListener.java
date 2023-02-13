@@ -26,6 +26,10 @@ public class VGLEDLevelMapListener extends LEDLevelMapListener {
 
     @Override
     public void setLEDLevelMap(List oscList) {
+        // Validate input - messages must be 66 elements long (xOffset + yOffset + 64 buttons = 66)
+        if(oscList.size() != 66){
+            return;
+        }
         // xOffset and yOffset represent 4 groups of 32 buttons
         int xOffset = (int) oscList.get(0);
         int yOffset = (int) oscList.get(1);
@@ -34,10 +38,7 @@ public class VGLEDLevelMapListener extends LEDLevelMapListener {
             int x = (i - 2) % 8; // increments to 7 then resets
             int y = (int) Math.floor((i - 2) / 8); // 0-7 = 0, 8-15 = 1, ...
             x += xOffset;
-            // TODO: Check Monome docs to make sure this logic is correct
-            //  I'm wondering if its not a list of 64 values instead of a list
-            //  of 32 values. This might make more sense with the offset values
-            y += (yOffset / 2);
+            y += yOffset;
             int ledState = (int) oscList.get(i);
             if(ledState < 4){
                 vgButtons.getButton(x, y).setBackground(colorValues.get(0));
@@ -49,9 +50,5 @@ public class VGLEDLevelMapListener extends LEDLevelMapListener {
                 vgButtons.getButton(x, y).setBackground(colorValues.get(3));
             }
         }
-
     }
-
-
-
 }
