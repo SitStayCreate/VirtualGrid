@@ -121,8 +121,9 @@ public class VirtualGridController extends GridController {
 
     @Override
     public void close(){
-        //TODO: stuff needed to close this device and also close the GUI window
         try {
+            // TODO: The following three can problem go in the parent since they most likely
+            //  will be used by all implementations - do this if design is successful
             decoratedOSCPortIn.close();
             decoratedOSCPortOut.close();
             requestServer.removeMonomeController(this);
@@ -131,4 +132,6 @@ public class VirtualGridController extends GridController {
             e.printStackTrace();
         }
     }
+
+
 }

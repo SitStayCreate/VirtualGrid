@@ -8,9 +8,11 @@ import com.SitStayCreate.CerealOSC.RequestServer.RequestServer;
 import com.SitStayCreate.VirtualGrid.VGridFrame;
 import com.SitStayCreate.Constants;
 
+import java.util.HashSet;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Set;
 
 public class SBActionListener implements ActionListener {
     private GridPanel gridPanel;
@@ -42,7 +44,7 @@ public class SBActionListener implements ActionListener {
         //Validate portIn is not already in use by another grid or the system
         int portIn = gridPanel.getPortIn();
 
-        List<GridController> controllers = requestServer.getGridControllers();
+        Set<GridController> controllers = requestServer.getGridControllers();
         //Check that the port is not already in use, if it is, do not create a device
         for(MonomeController controller : controllers){
             if(controller.getDecoratedOSCPortIn().getPortIn() == portIn){
