@@ -25,27 +25,33 @@ public class VGLEDLevelMapListener extends LEDLevelMapListener {
     }
 
     @Override
-    public void setLEDLevelMap(int xOffset, int yOffset, int ledState, int counter) {
-        int xCounter = counter % 8; // increments to 7 then resets
-        int yCounter = (int) Math.floor(counter / 8); // 0-7 = 0, 8-15 = 1, ...
+    public void setLEDLevelMap(List oscList) {
+        // xOffset and yOffset represent 4 groups of 32 buttons
+        int xOffset = (int) oscList.get(0);
+        int yOffset = (int) oscList.get(1);
 
-        int gridX = xOffset + xCounter;
-        int gridY = yOffset + yCounter;
-
-        //Virtual grids are always 16x8
-        if(gridY >= 8){
-            return;
+        for(int i = 2; i < oscList.size(); i++){
+            int x = (i - 2) % 8; // increments to 7 then resets
+            int y = (int) Math.floor((i - 2) / 8); // 0-7 = 0, 8-15 = 1, ...
+            x += xOffset;
+            // TODO: Check Monome docs to make sure this logic is correct
+            //  I'm wondering if its not a list of 64 values instead of a list
+            //  of 32 values. This might make more sense with the offset values
+            y += (yOffset / 2);
+            int ledState = (int) oscList.get(i);
+            if(ledState < 4){
+                vgButtons.getButton(x, y).setBackground(colorValues.get(0));
+            } else if(ledState < 8){
+                vgButtons.getButton(x, y).setBackground(colorValues.get(1));
+            }  else if(ledState < 12){
+                vgButtons.getButton(x, y).setBackground(colorValues.get(2));
+            } else {
+                vgButtons.getButton(x, y).setBackground(colorValues.get(3));
+            }
         }
 
-        //Translate ledLevel to ledSet
-        if(ledState < 4){
-            vgButtons.getButton(gridX,gridY).setBackground(colorValues.get(0));
-        } else if(ledState < 8){
-            vgButtons.getButton(gridX,gridY).setBackground(colorValues.get(1));
-        }  else if(ledState < 12){
-            vgButtons.getButton(gridX,gridY).setBackground(colorValues.get(2));
-        } else {
-            vgButtons.getButton(gridX,gridY).setBackground(colorValues.get(3));
-        }
     }
+
+
+
 }
