@@ -67,4 +67,15 @@ public abstract class GridController extends MonomeController {
     }
 
     public abstract void addLEDListeners();
+
+    @Override
+    public void close(){
+        try {
+            decoratedOSCPortIn.close();
+            decoratedOSCPortOut.close();
+            requestServer.removeMonomeController(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
