@@ -25,22 +25,28 @@ public class VGLEDLevelRowListener extends LEDLevelRowListener {
     }
 
     @Override
-    public void setLEDLevelRow(int xOffset, int gridY, int xCounter, int ledState) {
-
-        //Virtual grids never have more than 8 rows
-        if(gridY >= 8){
+    public void setLEDLevelRow(List oscList) {
+        // Input validation - messages should be xOffset y int[8]
+        if(oscList.size() != 10){
             return;
         }
 
-        //Varibright supported
-        if (ledState < 4) {
-            vgButtons.getButton(xOffset + (xCounter),gridY).setBackground(colorValues.get(0));
-        } else if (ledState < 8) {
-            vgButtons.getButton(xOffset + (xCounter),gridY).setBackground(colorValues.get(1));
-        } else if (ledState < 12) {
-            vgButtons.getButton(xOffset + (xCounter),gridY).setBackground(colorValues.get(2));
-        } else {
-            vgButtons.getButton(xOffset + (xCounter),gridY).setBackground(colorValues.get(3));
+        int xOffset = (int) oscList.get(0);
+        int y = (int) oscList.get(1);
+
+        for(int i = 2; i < oscList.size(); i++){
+            int ledState = (int) oscList.get(i);
+            int x = xOffset + (i - 2);
+            //Varibright supported
+            if (ledState < 4) {
+                vgButtons.getButton(x,y).setBackground(colorValues.get(0));
+            } else if (ledState < 8) {
+                vgButtons.getButton(x,y).setBackground(colorValues.get(1));
+            } else if (ledState < 12) {
+                vgButtons.getButton(x,y).setBackground(colorValues.get(2));
+            } else {
+                vgButtons.getButton(x,y).setBackground(colorValues.get(3));
+            }
         }
     }
 }
